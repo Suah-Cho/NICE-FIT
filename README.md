@@ -7,18 +7,18 @@
 
 ## ⚙️ 주요 기술 스택
 
-| 구분 | 기술 | 역할 |
-|------|-------|------|
-| **프레임워크** | **Next.js 15 (App Router)** | React 기반 서버·클라이언트 렌더링 통합 프레임워크, 정적 사이트 내보내기(`output: 'export'`) 지원 |
-| **언어** | **TypeScript** | 정적 타입을 통한 안전한 컴포넌트 설계 및 코드 완성도 향상 |
-| **UI 라이브러리** | **React 18** | Hooks(`useState`, `useEffect`, `useMemo`) 기반 상태 관리 및 컴포넌트 구성 |
-| **스타일링** | **Tailwind CSS** | 유틸리티 클래스 기반 반응형 디자인, 그라디언트, 그림자, 투명도 등 구현 |
-| **UI 컴포넌트** | **shadcn/ui** | Tailwind와 통합된 버튼 및 폼 요소 컴포넌트 (`@/components/ui/button`) |
-| **폰트** | **Pretendard Variable** | 전역 폰트 적용, 국문 웹 환경에서 가독성 높은 서체 |
-| **애니메이션** | **Framer Motion** | 카드 셔플, 페이드 인/아웃, 회전 등 부드러운 인터랙션 구현 |
-| **차트 시각화** | **Recharts** | `RadarChart`, `PolarGrid`, `Radar` 등을 활용한 6축 레이더 차트 구현 |
-| **정적 자원** | **HTML5 Video / Public Assets** | `/intro.mp4`, `/card_back.png`, `/cards/*.png` 등 정적 리소스 관리 |
-| **배포/호스팅** | **AWS S3 + CloudFront** | Next.js 정적 내보내기(`next export`) 결과물(`out/`)을 정적 웹 호스팅으로 배포 |
+| 구분 | 기술 |
+|------|-------|
+| **프레임워크** | **Next.js 15 (App Router)** |
+| **언어** | **TypeScript** | 
+| **UI 라이브러리** | **React 18** |
+| **스타일링** | **Tailwind CSS** | 
+| **UI 컴포넌트** | **shadcn/ui** | 
+| **폰트** | **Pretendard Variable** | 
+| **애니메이션** | **Framer Motion** | 
+| **차트 시각화** | **Recharts** |
+| **정적 자원** | **HTML5 Video / Public Assets** | 
+| **배포/호스팅** | **AWS S3  | 
 
 ---
 
