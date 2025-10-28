@@ -18,7 +18,7 @@
 | **애니메이션** | **Framer Motion** | 
 | **차트 시각화** | **Recharts** |
 | **정적 자원** | **HTML5 Video / Public Assets** | 
-| **배포/호스팅** | **AWS S3  | 
+| **배포/호스팅** | **AWS S3**  | 
 
 ---
 
