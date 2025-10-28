@@ -31,12 +31,11 @@
 │   ├── app/
 │   │   ├── page.tsx         # 메인 페이지 (설문/결과)
 │   │   ├── layout.tsx       # 전역 레이아웃
-│   ├── components/ui/button.tsx # shadcn UI 컴포넌트
+│   ├── components/ui/button.tsx # shadcn UI 버튼 컴포넌트
 ├── public/
-│   ├── intro.mp4
+│   ├── opening.mp4
 │   ├── card_back.png
-│   ├── cards/NICE답게-1.png ~ 6.png
-│   └── favicon.ico
+│   ├── NICE답게-1.png ~ 6.png
 ├── next.config.js            # output: 'export' 설정
 └── package.json              # 종속성 및 스크립트
 ```
