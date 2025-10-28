@@ -1,36 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+# 🪄 NICE FIT 설문 웹앱 기술 스택 (Next.js/React)
 
-First, run the development server:
+이 프로젝트는 **Next.js 15 기반 정적 SPA**로, NICE 핵심가치 진단을 위한 인터랙티브 설문과 시각화가 결합된 웹앱입니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## ⚙️ 주요 기술 스택
+
+| 구분 | 기술 | 역할 |
+|------|-------|------|
+| **프레임워크** | **Next.js 15 (App Router)** | React 기반 서버·클라이언트 렌더링 통합 프레임워크, 정적 사이트 내보내기(`output: 'export'`) 지원 |
+| **언어** | **TypeScript** | 정적 타입을 통한 안전한 컴포넌트 설계 및 코드 완성도 향상 |
+| **UI 라이브러리** | **React 18** | Hooks(`useState`, `useEffect`, `useMemo`) 기반 상태 관리 및 컴포넌트 구성 |
+| **스타일링** | **Tailwind CSS** | 유틸리티 클래스 기반 반응형 디자인, 그라디언트, 그림자, 투명도 등 구현 |
+| **UI 컴포넌트** | **shadcn/ui** | Tailwind와 통합된 버튼 및 폼 요소 컴포넌트 (`@/components/ui/button`) |
+| **폰트** | **Pretendard Variable** | 전역 폰트 적용, 국문 웹 환경에서 가독성 높은 서체 |
+| **애니메이션** | **Framer Motion** | 카드 셔플, 페이드 인/아웃, 회전 등 부드러운 인터랙션 구현 |
+| **차트 시각화** | **Recharts** | `RadarChart`, `PolarGrid`, `Radar` 등을 활용한 6축 레이더 차트 구현 |
+| **정적 자원** | **HTML5 Video / Public Assets** | `/intro.mp4`, `/card_back.png`, `/cards/*.png` 등 정적 리소스 관리 |
+| **배포/호스팅** | **AWS S3 + CloudFront** | Next.js 정적 내보내기(`next export`) 결과물(`out/`)을 정적 웹 호스팅으로 배포 |
+
+---
+
+## 🧩 세부 구성
+
+### 📁 프로젝트 구조
+```
+/project-root
+├── src/
+│   ├── app/
+│   │   ├── page.tsx         # 메인 페이지 (설문/결과)
+│   │   ├── layout.tsx       # 전역 레이아웃
+│   ├── components/ui/button.tsx # shadcn UI 컴포넌트
+├── public/
+│   ├── intro.mp4
+│   ├── card_back.png
+│   ├── cards/NICE답게-1.png ~ 6.png
+│   └── favicon.ico
+├── next.config.js            # output: 'export' 설정
+└── package.json              # 종속성 및 스크립트
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 빌드 및 배포 과정
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **정적 내보내기 설정** (`next.config.js`)
+   ```js
+   module.exports = { output: 'export' };
+   ```
 
-## Learn More
+2. **빌드 & 내보내기**
+   ```bash
+   npm run build
+   # 또는
+   npx next export
+   ```
+   → `/out` 폴더 생성 (index.html + 정적 리소스 포함)
 
-To learn more about Next.js, take a look at the following resources:
+3. **AWS S3 업로드**
+   ```bash
+   aws s3 sync ./out s3://nice-fit-site --delete
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **정적 웹 호스팅 설정**
+   - Index document: `index.html`
+   - Error document: `index.html` (SPA 라우팅용)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. **CloudFront 구성 (선택)**
+   - HTTPS, 커스텀 도메인, 캐싱 최적화 설정 가능
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ✨ 요약
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Next.js + Tailwind + Framer Motion + Recharts** 조합으로 만든 인터랙티브 웹앱
+- 모든 UI는 클라이언트 사이드 렌더링 기반 (`"use client"`)
+- `next export`로 완전 정적 사이트 생성 → **S3/CloudFront** 배포에 최적화
+- 결과 카드, 영상, 애니메이션이 포함된 고품질 UX 구현
+
+
