@@ -9,16 +9,10 @@
 
 | 구분 | 기술 |
 |------|-------|
-| **프레임워크** | **Next.js 15 (App Router)** |
-| **언어** | **TypeScript** | 
-| **UI 라이브러리** | **React 18** |
-| **스타일링** | **Tailwind CSS** | 
-| **UI 컴포넌트** | **shadcn/ui** | 
-| **폰트** | **Pretendard Variable** | 
-| **애니메이션** | **Framer Motion** | 
-| **차트 시각화** | **Recharts** |
-| **정적 자원** | **HTML5 Video / Public Assets** | 
-| **배포/호스팅** | **AWS S3**  | 
+| **Front-end** | **React(TypeScript)**, **Recharts**, **Framer Motion** |
+| **Style** | **Shadcn/ui**, **TailwindCSS**, **Pretendard Variable** |
+| **Infra** | **AWS S3** | 
+| **ETC** | **Git**, **ChatGPT** |
 
 ---
 
@@ -75,7 +69,7 @@
 
 - **Next.js + Tailwind + Framer Motion + Recharts** 조합으로 만든 인터랙티브 웹앱
 - 모든 UI는 클라이언트 사이드 렌더링 기반 (`"use client"`)
-- `next export`로 완전 정적 사이트 생성 → **S3/CloudFront** 배포에 최적화
+- `next export`로 완전 정적 사이트 생성 → **S3** 배포에 최적화
 - 결과 카드, 영상, 애니메이션이 포함된 고품질 UX 구현
 
 
