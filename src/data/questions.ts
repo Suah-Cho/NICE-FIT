@@ -28,15 +28,15 @@ export const QUESTION_LIST: QuestionItem[] = [
     options: [
       {
         label: "아무리 바빠도 동료의 부탁이면 시간을 내서 돕는다.",
-        trait: [{ axis: "niceAct", weight: 0.5 }, { axis: "colleagues", weight: 1 }]
+        trait: [{ axis: "niceAct", weight: 0.51 }, { axis: "colleagues", weight: 1 }]
       },
       {
         label: "내가 잘 아는 분야라 더 빨리 도울 수 있는 부분인지 확인한다.",
-        trait: [{ axis: "pro", weight: 0.8 }, { axis: "oneGoal", weight: 1 }]
+        trait: [{ axis: "pro", weight: 0.81 }, { axis: "oneGoal", weight: 1 }]
       },
       {
         label: "양해를 구하고, 내 업무를 먼저 마친다.",
-        trait: [{ axis: "pro", weight: 1 }, { axis: "betterBest", weight: 0.5 }]
+        trait: [{ axis: "pro", weight: 1 }, { axis: "betterBest", weight: 0.51 }]
       },
     ]
   },
@@ -46,7 +46,7 @@ export const QUESTION_LIST: QuestionItem[] = [
     options: [
       {
         label: "지적을 감사하게 받아들이고, 무엇을 고칠지 생각해본다.",
-        trait: [{ axis: "betterBest", weight: 0.5 }, { axis: "niceAct", weight: 1 }]
+        trait: [{ axis: "betterBest", weight: 0.5 }, { axis: "niceAct", weight: 1.1 }]
       },
       {
         label: "피드백을 반영했을 때 더 좋은 부분이 있을 지 살펴본다.",
@@ -54,7 +54,7 @@ export const QUESTION_LIST: QuestionItem[] = [
       },
       {
         label: "우리 팀의 목표가 같다는 걸 기억하면서 피드백을 수용한다.",
-        trait: [{ axis: "colleagues", weight: 0.8 }, { axis: "oneGoal", weight: 0.9 }]
+        trait: [{ axis: "colleagues", weight: 0.81 }, { axis: "oneGoal", weight: 0.91 }]
       },
     ]
   },
@@ -63,15 +63,15 @@ export const QUESTION_LIST: QuestionItem[] = [
     text: "Q3. 협업 프로젝트에서 업무 방식의 차이로 의견 충돌이 생긴다면?",
     options: [
       {
-        label: "서로 이해하면서, 목표가 결국 하나라는 걸 바탕을 먼저 생각해요.",
+        label: "서로 이해하면서, 목표가 결국 하나라는 걸 바탕을 먼저 생각한다.",
         trait: [{ axis: "whyWith", weight: 1 }]
       },
       {
-        label: "우선 감정이 상하지 않도록 상대방 의견을 끝까지 들어줄 것 같아요.",
+        label: "우선 감정이 상하지 않도록 상대방 의견을 끝까지 들어준다.",
         trait: [{ axis: "niceAct", weight: 1 }, { axis: "colleagues", weight: 0.9 }]
       },
       {
-        label: "저는 제 전문성을 발휘해 더 나은 해결책을 제안해볼 것 같아요.",
+        label: "저는 제 전문성을 발휘해 더 나은 해결책을 제안한다.",
         trait: [{ axis: "pro", weight: 1 }, { axis: "betterBest", weight: 1 }]
       },
     ]
@@ -81,15 +81,15 @@ export const QUESTION_LIST: QuestionItem[] = [
     text: "Q4. 회사에서 새로운 기술을 도입한 프로젝트 팀에 합류해달라는 제안을 받는다면?" , 
     options: [ 
       {
-        label: "새로운 도전이지만, 동료들과 함께 배우면서 해낼 것 같아요.", 
+        label: "새로운 도전이지만, 동료들과 함께 배우면서 해낸다.", 
         trait: [{ axis:"betterBest",weight:1},{axis:"niceAct",weight:0.7},{axis:"colleagues",weight:0.8},]
       },
       {
-        label: "우선 왜 나에게 이 역할을 제안했는지 충분히 이해한 후 결정할 것 같아요.", 
+        label: "우선 왜 나에게 이 역할을 제안했는지 충분히 이해한 후 결정한다.", 
         trait: [{axis:"pro",weight:0.8},{axis:"whyWith",weight:1},]
       },
       {
-        label: "잘 모르는 분야라면 무턱대고 수락하기보다, 해당 분야에 더 전문성이 있는 동료가 있는지 살펴볼 것 같아요.", 
+        label: "잘 모르는 분야라면 무턱대고 수락하기보다, 해당 분야에 더 전문성이 있는 동료가 있는지 살펴본다.", 
         trait: [{axis:"pro",weight:1},{axis:"oneGoal",weight:1},]
       },
     ]
@@ -189,7 +189,7 @@ export const QUESTION_LIST: QuestionItem[] = [
     text: "Q10. 당신이 주축으로 참여한 프로젝트가 큰 성공을 거두었습니다. 이 성공의 요인을 무엇이라고 생각하시나요?" , 
     options: [ 
       {
-        label: "마음은 하나로 모았던 게 주효했다고 생각한다.", 
+        label: "마음을 하나로 모았던 게 주효했다고 생각한다.", 
         trait: [{axis:"colleagues",weight:1},{axis:"oneGoal",weight:0.7},]
       },
       {
@@ -209,8 +209,17 @@ export const ResultSummary: Record<AxisKey, string> = {
     betterBest: '항상 더 높은 목표를 향해가는 ‘도전가’. 현재만이 아닌 미래를 바라봐요.',
     niceAct: '배려와 존중으로 모두를 편하게 만드는 분위기 메이커',
     colleagues: '함께할 때 가장 빛나는, ‘시너지의 중심’. 함께일 때 200% 에너지를 내는 사람',
-    whyWith: 'dldidkdkdkdkdkk',
+    whyWith: '목적이 분명해야 마음이 움직이는 합리주의자',
     oneGoal: '`원팀` , `원골`을 추구해요. 뭉치면 살고 흩어지면 죽는다!',
+  }
+
+export const ResultSummaryMobile: Record<AxisKey, string> = {
+    pro: '완벽주의 DNA를 장착한 ‘디테일 장인’. \n허투루 넘어가는 건 절대 못 봐요.',
+    betterBest: '항상 더 높은 목표를 향해가는 ‘도전가’. \n현재만이 아닌 미래를 바라봐요.',
+    niceAct: '배려와 존중으로 \n모두를 편하게 만드는 분위기 메이커',
+    colleagues: '함께할 때 가장 빛나는, ‘시너지의 중심’. \n함께일 때 200% 에너지를 내는 사람',
+    whyWith: '목적이 분명해야 \n마음이 움직이는 합리주의자',
+    oneGoal: '`원팀` , `원골`을 추구해요. \n뭉치면 살고 흩어지면 죽는다!',
   }
 
 export const ResultTraits: Record<AxisKey, string[]> = {
@@ -235,8 +244,8 @@ export const ResultTraits: Record<AxisKey, string[]> = {
   ],
 
   whyWith: [
-    "WHY를 공유하면 WITH로 이어집니다. 방향만 맞으면 일은 반이나 된 거예요.",
-    "같이 가려면 먼저 이해시키고 설득해야 해요. 그래야 진짜 한 팀이 되죠.",
+    "WHY를 공유하면 WITH로 이어집니다. \n방향만 맞으면 일은 반이나 된 거예요.",
+    "같이 가려면 먼저 이해시키고 설득해야 해요. \n그래야 진짜 한 팀이 되죠.",
   ],
 
   oneGoal: [
@@ -245,34 +254,98 @@ export const ResultTraits: Record<AxisKey, string[]> = {
   ],
 }
 
-export const ResultMomonet: Record<AxisKey, string[]> = {
+export const ResultTraitsMobile: Record<AxisKey, string[]> = {
   pro: [
-    "내가 한 일은 끝까지 완성도 있게 마무리해야 마음이 놓여요",
-    "내가 맡은 일에 몰입할 때, 준비한 역량을 발휘할 때 가장 빛나요.",
+    "나의 전문성이 \n곧 팀의 신뢰라고 생각해요",
+    "내가 한 일은 끝까지 \n완성도 있게 마무리해야 마음이 놓여요",
   ],
 
   betterBest: [
+    "지금이 최선일까요? \n조금만 바꾸면 더 좋아질 것 같아요!",
     "최선을 추구하면 최고가 될 수 있어요!",
-    "변화로 작은 성과를 만들었을 때, ‘더 나아질 수 있다’는 확신을 얻는 순간 가장 빛나요.",
   ],
 
   niceAct: [
-    "내가 받고 싶은 친절만큼 남에게도 친절하자",
-    "누군가가 마음 편해지고 분위기가 부드러워지는 걸 느낄 때 가장 빛나요.",
+    "웃으면 복이 따라온다!",
+    "내가 받고 싶은 친절만큼 \n남에게도 친절하자",
   ],
 
   colleagues: [
+    "혼자보다 같이 하면 더 잘돼요",
     "함께 고민해요, 제가 도와드릴게요",
-    "함께 고민한 노력이 좋은 성과로 이어졌을 때",
   ],
 
   whyWith: [
-    "같이 가려면 먼저 이해시키고 설득해야 해요. 그래야 진짜 한 팀이 되죠.",
-    "내가 던진 질문으로 회의의 방향이 명확해졌을 때 힘이 나요.",
+    "WHY를 공유하면 WITH로 이어집니다. \n방향만 맞으면 일은 반이나 된 거예요.",
+    "같이 가려면 \n먼저 이해시키고 설득해야 해요. \n그래야 진짜 한 팀이 되죠.",
   ],
 
   oneGoal: [
-    "우린 한 배에 탄 운명공동체!",
-    "서로 다른 팀들이 한 방향으로 힘을 모아 큰 성과를 낼 때, 진짜 팀워크의 가치를 느껴요.",
+    "회사 일은 2인3각 같아요.\n호흡을 맞춰야해요!",
+    "우린 한 배에 탄 \n운명공동체!",
+  ],
+}
+
+export const ResultMomonet: Record<AxisKey, string[]> = {
+  pro: [
+    "내가 맡은 일에 몰입할 때, 준비한 역량을 발휘할 때 가장 빛나요.",
+    "내 분야에선 최고의 전문가로 성장하는 모습을 꿈꿔요!"
+  ],
+
+  betterBest: [
+    "변화로 작은 성과를 만들었을 때, ‘더 나아질 수 있다’는 \n확신을 얻는 순간 가장 빛나요.",
+    "변화를 두려워하지 않고 새로운 방식을 시도한 결과가 팀에 \n긍정적 영향을 줄 때 보람을 느껴요."
+  ],
+
+  niceAct: [
+    "누군가가 마음 편해지고 분위기가 부드러워지는 걸 \n느낄 때 가장 빛나요.",
+    "작은 배려가 큰 신뢰로 돌아올 때 앞으로 더 잘하고 싶어져요."
+  ],
+
+  colleagues: [
+    "함께 고민한 노력이 좋은 성과로 이어졌을 때",
+    "동료와 협력해 예상보다 큰 성과를 만들며 ‘같이의 힘’을 느낄 때 \n가장 기뻐요."
+  ],
+
+  whyWith: [
+    "내가 던진 질문으로 \n회의의 방향이 명확해졌을 때 힘이 나요.",
+    "프로젝트의 배경을 고려하고 \n목표를 설정하면 \n협업의 시너지를 높여요."
+  ],
+
+  oneGoal: [
+    "서로 다른 팀들이 한 방향으로 힘을 모아 큰 성과를 낼 때, \n진짜 팀워크의 가치를 느껴요.",
+    "부서 간 장벽을 낮추고 모두가 같은 목적지로 향하도록 \n조율하는 모습을 꿈꿔요."
+  ],
+}
+
+export const ResultMomonetMobile: Record<AxisKey, string[]> = {
+  pro: [
+    "내가 맡은 일에 몰입할 때, \n준비한 역량을 발휘할 때 가장 빛나요.",
+    "내 분야에선 최고의 전문가로 \n성장하는 모습을 꿈꿔요!"
+  ],
+
+  betterBest: [
+    "변화로 작은 성과를 만들었을 때, \n‘더 나아질 수 있다’는 \n확신을 얻는 순간 가장 빛나요.",
+    "변화를 두려워하지 않고 \n새로운 방식을 시도한 결과가 팀에 \n긍정적 영향을 줄 때 보람을 느껴요."
+  ],
+
+  niceAct: [
+    "누군가가 마음 편해지고 \n분위기가 부드러워지는 걸 \n느낄 때 가장 빛나요.",
+    "작은 배려가 큰 신뢰로 돌아올 때 \n앞으로 더 잘하고 싶어져요."
+  ],
+
+  colleagues: [
+    "함께 고민한 노력이 \n좋은 성과로 이어졌을 때",
+    "동료와 협력해 예상보다 큰 성과를 \n만들며 ‘같이의 힘’을 느낄 때 \n가장 기뻐요."
+  ],
+
+  whyWith: [
+    "내가 던진 질문으로 \n회의의 방향이 명확해졌을 때 힘이 나요.",
+    "프로젝트의 배경을 고려하고 \n목표를 설정하면 \n협업의 시너지를 높여요."
+  ],
+
+  oneGoal: [
+    "서로 다른 팀들이 한 방향으로 \n힘을 모아 큰 성과를 낼 때, \n진짜 팀워크의 가치를 느껴요.",
+    "부서 간 장벽을 낮추고 \n모두가 같은 목적지로 향하도록 \n조율하는 모습을 꿈꿔요."
   ],
 }

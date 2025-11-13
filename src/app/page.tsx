@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useMemo, useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,8 +17,11 @@ import {
   QUESTION_LIST,
   AXES,
   ResultSummary,
+  ResultSummaryMobile,
   ResultTraits,
+  ResultTraitsMobile,
   ResultMomonet,
+  ResultMomonetMobile,
   type AxisKey,
 } from "@/data/questions";
 
@@ -28,25 +30,39 @@ import EventSection from "@/components/event";
 const CARD_BACK = "/card_back.png";
 
 const RESULT_IMAGE_BY_KEY: Record<AxisKey, string> = {
-  pro: "NICE답게-1.png",
-  betterBest: "NICE답게-2.png",
-  niceAct: "NICE답게-3.png",
-  colleagues: "NICE답게-4.png",
-  whyWith: "NICE답게-5.png",
-  oneGoal: "NICE답게-6.png",
+  pro: "/NICE1.png",
+  betterBest: "/NICE2.png",
+  niceAct: "/NICE3.png",
+  colleagues: "/NICE4.png",
+  whyWith: "/NICE5.png",
+  oneGoal: "/NICE6.png",
 };
 
-// 문항 그대로 사용
+// ---------------------- 점수 구조 ----------------------
 const selectedQuestions = QUESTION_LIST;
 
-// ---------------------- 점수 구조 ----------------------
 const makeInitialScores = () =>
   AXES.reduce(
     (acc, axis) => ({ ...acc, [axis.key]: 0 }),
     {} as Record<AxisKey, number>
   );
 
-// ------------------ 차트 ------------------
+// ---------------------- 축 설명 ----------------------
+const AXIS_DESCRIPTIONS: Record<AxisKey, string> = {
+  pro: "내가 맡은 분야에서 전문성을 바탕으로 주도적이며 책임감있게 일할 때, 회사와 나는 함께 성장합니다.",
+  betterBest:
+    "변화를 두려워하지 않고 더 나음(Better)을 추구하는 것이 우리를 최고(Best)로 이끕니다.",
+  niceAct:
+    "구성원 간 존중과 배려, 약속을 지키는 것은 당연한 자세입니다. NICE하게 행동하는 것이 중요합니다.",
+  colleagues:
+    "탁월한 동료와 함께 고민할 때 더 나은 해법을 찾고 시너지가 만들어집니다.",
+  whyWith:
+    "Why를 공유해야 With가 있습니다. 소통의 명확함이 같은 방향으로 나아가게 합니다.",
+  oneGoal:
+    "우리는 서로 다른 일을 해도 목적지는 하나입니다. 회사의 공동 목표를 향해 함께 나아가야 합니다.",
+};
+
+// ------------------ 차트 라벨 ------------------
 const CustomAngleTick: React.FC<any> = (props) => {
   const { cx, cy, x, y, payload } = props;
 
@@ -114,15 +130,14 @@ function RadarView({
 
   return (
     <div className="
-        w-full
-        max-w-[300px]
-        sm:max-w-[420px]
-        md:max-w-[600px]
-        mx-auto
-        h-[380px]
-        sm:h-[500px]
-      "
-    >
+      w-full
+      max-w-[300px]
+      sm:max-w-[420px]
+      md:max-w-[600px]
+      mx-auto
+      h-[380px]
+      sm:h-[500px]
+    ">
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart
           data={chartData}
@@ -187,18 +202,18 @@ function TarotReveal({
                 y: isReveal ? -80 : 0,
               }}
               transition={{ duration: 1 }}
-              className="w-20 h-32 md:w-24 md:h-36 [transform-style:preserve-3d]"
+              className="w-20 h-40 md:w-24 md:h-36 [transform-style:preserve-3d]"
             >
               <div className="relative w-full h-full [transform-style:preserve-3d]">
                 <div
-                  className="absolute inset-0 rounded-xl shadow-lg flex items-center justify-center overflow-hidden"
+                  className="absolute inset-0 rounded-sm shadow-lg flex items-center justify-center overflow-hidden"
                   style={{ backgroundColor: "#02227a", backfaceVisibility: "hidden" }}
                 >
                   <img src={CARD_BACK} className="w-full h-full object-contain" />
                 </div>
 
                 <div
-                  className="absolute inset-0 rounded-xl shadow-xl overflow-hidden"
+                  className="absolute inset-0 rounded-sm shadow-xl overflow-hidden"
                   style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }}
                 >
                   <img src={frontSrc} className="w-full h-full object-cover" />
@@ -212,33 +227,59 @@ function TarotReveal({
   );
 }
 
-// ---------------------- 메인 ----------------------
+// ---------------------- 이름 모달 ----------------------
+function NameAlertModal({ onClose }: { onClose: () => void }) {
+  return (
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div className="bg-white text-black rounded-xl p-6 w-72 text-center shadow-2xl">
+        <p className="text-lg font-semibold mb-3">이름을 입력해주세요</p>
+        <button
+          onClick={onClose}
+          className="mt-2 px-4 py-2 bg-[#131A85] text-white rounded-md hover:bg-[#1f28c0]"
+        >
+          확인
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ---------------------- 메인 컴포넌트 ----------------------
 export default function NiceSurveyApp() {
   const [userName, setUserName] = useState("");
+  const [isMobile, setIsMobile] = useState(false);
+  const [showNameAlert, setShowNameAlert] = useState(false);
 
   const [scores, setScores] = useState<Record<AxisKey, number>>(makeInitialScores);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const [phase, setPhase] = useState<
     "video" | "intro" | "questions" | "reveal" | "result"
   >("video");
-
   const [revealIndices, setRevealIndices] = useState<number[]>([]);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
-  const [showChart, setShowChart] = useState(false);
-
-  // ⭐ 추가됨: 선택한 옵션 index 저장
   const [selectedOptionIndex, setSelectedOptionIndex] = useState<number | null>(null);
 
   const isLastQuestion = currentIndex === selectedQuestions.length - 1;
 
-  // ⭐ 수정됨: 선택 후 index 저장 + 마지막이 아니면 초기화
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
+  useEffect(() => {
+    if (phase === "result" && revealIndices.length === 1) {
+      setSelectedCard(revealIndices[0]);
+    }
+  }, [phase, revealIndices]);
+
   const handleAnswer = (
     qIndex: number,
     optIndex: number,
     traits: { axis: AxisKey; weight: number }[]
   ) => {
-    setSelectedOptionIndex(optIndex); // 선택 표시 저장
+    setSelectedOptionIndex(optIndex);
 
     setScores((prev) => {
       const next = { ...prev };
@@ -248,37 +289,28 @@ export default function NiceSurveyApp() {
       return next;
     });
 
-    // 마지막 문항이 아니면 자동으로 다음 질문으로 이동
     if (qIndex < selectedQuestions.length - 1) {
       setTimeout(() => {
         setCurrentIndex(qIndex + 1);
-        setSelectedOptionIndex(null); // 다음 질문에서는 초기화
+        setSelectedOptionIndex(null);
       }, 200);
     }
   };
 
-  // 결과 카드 결정
-  useEffect(() => {
-    if (phase === "result") {
-      if (revealIndices.length === 1) {
-        setSelectedCard(revealIndices[0]);
-      }
+  const handleStart = () => {
+    if (!userName.trim()) {
+      setShowNameAlert(true);
+      return;
     }
-  }, [phase, revealIndices]);
-
-  const AXIS_DESCRIPTIONS: Record<AxisKey, string> = {
-    pro: "내가 맡은 분야에서 전문성을 바탕으로 주도적이며 책임감있게 일할 때, 회사와 나는 함께 성장합니다.",
-    betterBest: "변화를 두려워하지 않고 더 나음(Better)을 추구하는 것이 우리를 최고(Best)로 이끕니다.",
-    niceAct: "구성원 간 존중과 배려, 약속을 지키는 것은 당연한 자세입니다. NICE하게 행동하는 것이 중요합니다.",
-    colleagues: "탁월한 동료와 함께 고민할 때 더 나은 해법을 찾고 시너지가 만들어집니다.",
-    whyWith: "Why를 공유해야 With가 있습니다. 소통의 명확함이 같은 방향으로 나아가게 합니다.",
-    oneGoal: "우리는 서로 다른 일을 해도 목적지는 하나입니다. 회사의 공동 목표를 향해 함께 나아가야 합니다.",
+    setPhase("questions");
   };
 
   return (
     <div className="min-h-screen w-full bg-[linear-gradient(180deg,_#6560C5_0%,_#131A85_100%)] text-[#F8F7FF] flex items-center justify-center">
+      {/* 이름 입력 모달 */}
+      {showNameAlert && <NameAlertModal onClose={() => setShowNameAlert(false)} />}
 
-      {/* 영상 */}
+      {/* 영상 단계 복구 ✅ */}
       {phase === "video" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
           <video
@@ -293,7 +325,6 @@ export default function NiceSurveyApp() {
       )}
 
       <div className="relative max-w-3xl mx-auto px-4 py-10 w-full">
-
         {/* 인트로 */}
         {phase === "intro" && (
           <>
@@ -311,7 +342,7 @@ export default function NiceSurveyApp() {
                 {new Array(6).fill(0).map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute h-44 w-26 rounded-xl shadow-2xl flex items-center justify-center"
+                    className="absolute h-44 w-26 rounded-sm shadow-2xl flex items-center justify-center"
                     style={{ backgroundColor: "#02227a", zIndex: i + 1 }}
                     initial={{ x: -140, rotate: -12 + i * 2, opacity: 0 }}
                     animate={{
@@ -332,7 +363,7 @@ export default function NiceSurveyApp() {
               </div>
 
               <div className="flex justify-center mb-4">
-                <input 
+                <input
                   type="text"
                   placeholder="이름을 입력해주세요"
                   value={userName}
@@ -342,8 +373,13 @@ export default function NiceSurveyApp() {
               </div>
 
               <Button
-                onClick={() => setPhase("questions")}
-                className="mt-6 px-6 py-6 font-bold rounded-sm bg-[#F9CF10] hover:bg-[#F9CF10]/80 text-black shadow-lg text-base"
+                onClick={handleStart}
+                className="
+                  mt-6 px-6 py-6 
+                  font-bold rounded-sm 
+                  bg-[#F9CF10] hover:bg-[#F9CF10]/80 
+                  text-black shadow-lg text-base
+                "
               >
                 NICE FIT 진단하기
               </Button>
@@ -368,7 +404,6 @@ export default function NiceSurveyApp() {
                 {selectedQuestions[currentIndex].text}
               </div>
 
-              {/* ⭐ 선택 UI가 적용된 버튼 부분 */}
               <div className="grid grid-cols-1 gap-3">
                 {selectedQuestions[currentIndex].options.map((opt, idx) => (
                   <Button
@@ -377,7 +412,6 @@ export default function NiceSurveyApp() {
                     onClick={() => handleAnswer(currentIndex, idx, opt.trait)}
                     className={`
                       w-full justify-center text-base whitespace-normal break-words px-4 py-9 transition-all
-
                       ${
                         selectedOptionIndex === idx
                           ? "text-black scale-[1.03]"
@@ -420,17 +454,20 @@ export default function NiceSurveyApp() {
         {/* 결과 */}
         {phase === "result" && (
           <>
-            <div className="py-10"></div>
+            <div className="py-10" />
+
             <motion.h2
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="text-2xl font-bold mb-6 text-center"
             >
-              ✨ {userName}님의 NICE FIT 결과 ✨
+              ✨ {userName}님의 ✨
+              <br />
+              NICE-FIT 결과
             </motion.h2>
 
-            <div className="py-3"></div>
+            <div className="py-3" />
 
             <div className="flex justify-center mb-4">
               <div className="flex gap-3">
@@ -445,70 +482,69 @@ export default function NiceSurveyApp() {
                       }`}
                       onClick={() => {
                         setSelectedCard(i);
-                        setShowChart(false);
                       }}
                     >
-                      <img src={frontSrc} className="rounded-s-none w-full h-full object-cover" />
+                      <img
+                        src={frontSrc}
+                        className="rounded-s-none w-full h-full object-cover"
+                      />
                     </motion.div>
                   );
                 })}
               </div>
             </div>
 
-            <div className="py-6"></div>
+            <div className="py-6" />
 
             {selectedCard !== null && (
-              <>
-                <div className="max-w-xl mx-auto mb-3 p-4 rounded-xl bg-white/10">
-                  <div className="text-sm text-violet-100 mb-2 font-semibold">
-                    {AXES[selectedCard].label}
-                  </div>
-                  <div className="text-sm text-violet-200">
-                    {AXIS_DESCRIPTIONS[AXES[selectedCard].key]}
-                  </div>
+              <div className="max-w-xl mx-auto mb-3 p-4 rounded-sm bg-white/10">
+                <div className="text-sm text-violet-100 mb-2 font-semibold">
+                  {AXES[selectedCard].label}
                 </div>
-
-                
-              </>
+                <div className="text-sm text-violet-200">
+                  {AXIS_DESCRIPTIONS[AXES[selectedCard].key]}
+                </div>
+              </div>
             )}
 
-            {/* {showChart && ( */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                className="mb-3 p-1"
-              >
-                <RadarView
-                  axisData={AXES.map((a) => ({
-                    axisLabel: a.label,
-                    value: scores[a.key],
-                  }))}
-                />
-              </motion.div>
-            {/* )} */}
+            {/* 차트 */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="mb-3 p-1"
+            >
+              <RadarView
+                axisData={AXES.map((a) => ({
+                  axisLabel: a.label,
+                  value: scores[a.key],
+                }))}
+              />
+            </motion.div>
 
+            {/* NICE 특징 */}
             <div className="text-center mb-6">
-              <p className="mb-2 font-bold text-3xl">🔮</p>
+              <p className="mb-2 font-bold text-4xl">🔮</p>
               <p className="mb-2 font-bold text-3xl">{userName}님의</p>
               <p className="mb-2 font-bold text-3xl">NICE다운 특징은...</p>
             </div>
 
             <div className="text-center py-6">
-              <p className="text-lg font-bold text-violet-200">
-                {selectedCard !== null && (
-                  console.log(ResultSummary[AXES[selectedCard].key]),
-                  <>
-                    {ResultSummary[AXES[selectedCard].key]}
-                  </>
-                )}
+              <p className="text-lg font-bold text-violet-200 whitespace-pre-line">
+                {selectedCard !== null &&
+                  (isMobile
+                    ? ResultSummaryMobile[AXES[selectedCard].key]
+                    : ResultSummary[AXES[selectedCard].key])}
               </p>
             </div>
-            
+
             <div className="space-y-10 mt-6 py-8">
               {selectedCard !== null && (
-                <div className="space-y-8">
-                  {ResultTraits[AXES[selectedCard].key as AxisKey].map((trait, index) => (
+                <div className="space-y-8 whitespace-pre-line">
+                  {(isMobile
+                    ? ResultTraitsMobile[AXES[selectedCard].key as AxisKey]
+                    : ResultTraits[AXES[selectedCard].key as AxisKey]
+                  ).map((trait, index) => (
                     <div
                       key={index}
                       className="
@@ -531,18 +567,22 @@ export default function NiceSurveyApp() {
               )}
             </div>
 
-            <div className="py-10"></div>
+            <div className="py-10" />
 
+            {/* NICE Moment */}
             <div className="text-center mb-6">
-              <p className="mb-2 font-bold text-2xl">🔮</p>
-              <p className="mb-2 font-bold text-2xl">{userName}님이</p>
-              <p className="mb-2 font-bold text-2xl">가장 NICE다운 순간은...</p>
+              <p className="mb-2 font-bold text-4xl">🔮</p>
+              <p className="mb-2 font-bold text-3xl">{userName}님이</p>
+              <p className="mb-2 font-bold text-3xl">가장 NICE다운 순간은...</p>
             </div>
 
             <div className="space-y-10 mt-6 py-8">
               {selectedCard !== null && (
-                <div className="space-y-8">
-                  {ResultMomonet[AXES[selectedCard].key as AxisKey].map((trait, index) => (
+                <div className="space-y-8 whitespace-pre-line">
+                  {(isMobile
+                    ? ResultMomonetMobile[AXES[selectedCard].key as AxisKey]
+                    : ResultMomonet[AXES[selectedCard].key as AxisKey]
+                  ).map((trait, index) => (
                     <div
                       key={index}
                       className="
@@ -565,7 +605,7 @@ export default function NiceSurveyApp() {
               )}
             </div>
 
-            <div className="py-10"></div>
+            <div className="py-10" />
 
             <EventSection userName={userName} />
           </>
