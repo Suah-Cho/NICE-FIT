@@ -361,8 +361,29 @@ export default function NiceSurveyApp() {
                   </motion.div>
                 ))}
               </div>
-
-              <div className="flex justify-center mb-4">
+              
+              <div className="w-64 flex flex-col items-center gap-4">
+                <input
+                  type="text"
+                  placeholder="이름을 입력해주세요"
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="px-4 py-3 rounded-sm bg-white text-black w-64 text-center mb-3"
+                />
+                <Button
+                  onClick={handleStart}
+                  className="
+                    w-full
+                    px-4 py-6 
+                    font-bold rounded-sm 
+                    bg-[#F9CF10] hover:bg-[#F9CF10]/80 
+                    text-black shadow-lg text-base
+                  "
+                >
+                  NICE FIT 진단하기
+                </Button>
+              </div>
+              {/* <div className="flex justify-center mb-4">
                 <input
                   type="text"
                   placeholder="이름을 입력해주세요"
@@ -370,19 +391,7 @@ export default function NiceSurveyApp() {
                   onChange={(e) => setUserName(e.target.value)}
                   className="px-4 py-2 rounded-sm bg-white text-black w-64 text-center"
                 />
-              </div>
-
-              <Button
-                onClick={handleStart}
-                className="
-                  mt-6 px-6 py-6 
-                  font-bold rounded-sm 
-                  bg-[#F9CF10] hover:bg-[#F9CF10]/80 
-                  text-black shadow-lg text-base
-                "
-              >
-                NICE FIT 진단하기
-              </Button>
+              </div> */}
             </div>
           </>
         )}
