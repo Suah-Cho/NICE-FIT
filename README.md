@@ -3,7 +3,10 @@
 
 이 프로젝트는 **Next.js 15 기반 정적 SPA**로, NICE 핵심가치 진단을 위한 인터랙티브 설문과 시각화가 결합된 웹앱입니다.
 
+#### [NICE-FIT 테스트하기](http://nice-fit.s3-website.ap-northeast-2.amazonaws.com)
+
 ---
+
 
 ## ⚙️ 주요 기술 스택
 
