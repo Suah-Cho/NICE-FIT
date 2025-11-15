@@ -1,11 +1,11 @@
 
 export const AXES = [
-  { key: "pro",        label: "나의 전문성이\n NICE의 경쟁력입니다." },
-  { key: "betterBest", label: "Better를 추구할 때\n Best가 됩니다." },
-  { key: "niceAct",    label: "NICE인이라면,\n나이스하게 행동합니다." },
-  { key: "colleagues", label: "최고의 복지는\n동료입니다." },
-  { key: "whyWith",    label: "Why를 알아야\nWith가 있습니다." },
-  { key: "oneGoal",    label: "서로 하는 일은 달라도\n우리의 목적지는\n하나입니다." },
+  { key: "pro",        label: "01. 나의 전문성이\n NICE의 경쟁력입니다." },
+  { key: "betterBest", label: "02. Better를 추구할 때\n Best가 됩니다." },
+  { key: "niceAct",    label: "03. NICE인이라면,\n나이스하게 행동합니다." },
+  { key: "colleagues", label: "04. 최고의 복지는\n동료입니다." },
+  { key: "whyWith",    label: "05. Why를 알아야\nWith가 있습니다." },
+  { key: "oneGoal",    label: "06. 서로 하는 일은 달라도\n우리의 목적지는\n하나입니다." },
 ] as const;
 
 export type AxisKey = typeof AXES[number]["key"];
@@ -63,7 +63,7 @@ export const QUESTION_LIST: QuestionItem[] = [
     text: "Q3. 협업 프로젝트에서 업무 방식의 차이로 의견 충돌이 생긴다면?",
     options: [
       {
-        label: "서로 이해하면서, 목표가 결국 하나라는 걸 바탕을 먼저 생각한다.",
+        label: "서로 이해하면서, 목표가 결국 하나라는 바탕을 먼저 생각한다.",
         trait: [{ axis: "whyWith", weight: 1 }]
       },
       {
@@ -71,7 +71,7 @@ export const QUESTION_LIST: QuestionItem[] = [
         trait: [{ axis: "niceAct", weight: 1 }, { axis: "colleagues", weight: 0.9 }]
       },
       {
-        label: "저는 제 전문성을 발휘해 더 나은 해결책을 제안한다.",
+        label: "나의 전문성을 발휘해 더 나은 해결책을 제안한다.",
         trait: [{ axis: "pro", weight: 1 }, { axis: "betterBest", weight: 1 }]
       },
     ]
@@ -135,7 +135,7 @@ export const QUESTION_LIST: QuestionItem[] = [
     text: "Q7. 팀원이 과도한 업무양으로 힘들어하고 있다면?" , 
     options: [ 
       {
-        label: "동료의 업무 부담을 덜어주려고, 나눠서 돕습니다.", 
+        label: "동료의 업무 부담을 덜어주려고, 나눠서 돕는다.", 
         trait: [{axis:"niceAct",weight:0.7},{axis:"colleagues",weight:1},]
       },
       {
@@ -150,7 +150,7 @@ export const QUESTION_LIST: QuestionItem[] = [
   },
   {
     id: 8,
-    text: "Q8. 동료가 회의 중 다른 팀원에게 다소 무례하게 행동하는 것을 목격했다면," , 
+    text: "Q8. 동료가 회의 중 다른 팀원에게 다소 무례하게 행동하는 것을 목격했다면?" , 
     options: [ 
       {
         label: "회의 후 조용히 해당 동료에게 방금 상황에 대해 피드백한다.", 
@@ -168,7 +168,7 @@ export const QUESTION_LIST: QuestionItem[] = [
   },
   {
     id: 9,
-    text: "Q9. 지금보다 효율을 높일 수 있는 새로운 아이디어가 떠올랐습니다. 하지만 동료들은 변화를 망설이는 분위기라면?" , 
+    text: "Q9. 지금보다 효율을 높일 수 있는 새로운 아이디어가 떠올랐다. 하지만 동료들은 변화를 망설이는 분위기라면?" , 
     options: [ 
       {
         label: "아이디어의 취지와 개선 효과를 충분히 설명하고 진행한다.", 
@@ -186,7 +186,7 @@ export const QUESTION_LIST: QuestionItem[] = [
   },
   {
     id: 10,
-    text: "Q10. 당신이 주축으로 참여한 프로젝트가 큰 성공을 거두었습니다. 이 성공의 요인을 무엇이라고 생각하시나요?" , 
+    text: "Q10. 당신이 주축으로 참여한 프로젝트가 큰 성공을 거두었다. 성공의 요인을 무엇이라 생각하는지?" , 
     options: [ 
       {
         label: "마음을 하나로 모았던 게 주효했다고 생각한다.", 
@@ -203,6 +203,34 @@ export const QUESTION_LIST: QuestionItem[] = [
     ]
   },
 ]
+
+export const AXIS_DESCRIPTIONS: Record<AxisKey, string> = {
+  pro: "내가 맡은 분야에서 전문성을 바탕으로 주도적이며 책임감있게 일할 때, \n회사와 나는 함께 성장하는 좋은 파트너가 됩니다.",
+  betterBest:
+    "현실에 안주하거나 불편함을 참는 건 스마트 하지 않습니다.\n변화를 두려워하지 않고 더 나음(Better)을 추구하는 것 만이 \n우리를 최고(Best)로 이끌 수 있습니다.",
+  niceAct:
+    "구성원 간 존중과 배려, 약속을 지키는 것은 당연히 갖춰야 할 덕목입니다.\n'NICE'에 맞는 '나이스'한 구성원이 되기 위해 노력해야합니다.",
+  colleagues:
+    "NICE는 최고의 전문가가 모인 집단입니다.\n탁월한 동료와 함께 고민할 때 더 나은 해결책을 찾고 목표 달성을 위한 시너지를 만들 수 있습니다.",
+  whyWith:
+    "불분명한 업무지시나 소통은 오해를 만들고 잘못된 결과를 초래합니다.\n'무엇을'과 '어떻게'뿐 아니라 '왜(WHY)'를 공유할 때 같은 방향으로 함께(WITH) \n나아갈 수 있습니다.",
+  oneGoal:
+    "우리의 목적지는 하나! 서로 다른 일을 하더라도 모두 회사를 위한 일입니다.\n부서간의 이해관계를 우선시 하는 것 보다는 우리 회사 공동의 목표에 도달하기 위해 \n노력해야 합니다.",
+};
+
+export const AXIS_DESCRIPTIONSMOBILE: Record<AxisKey, string> = {
+  pro: "내가 맡은 분야에서 전문성을 바탕으로 주도적이며 \n책임감있게 일할 때, 회사와 나는 함께 성장하는 좋은 \n파트너가 됩니다.",
+  betterBest:
+    "현실에 안주하거나 불편함을 참는 건 스마트 하지 \n않습니다. 변화를 두려워하지 않고 더 나음(Better)을 \n추구하는 것 만이 우리를 최고(Best)로 이끌 수 \n있습니다.",
+  niceAct:
+    "구성원 간 존중과 배려, 약속을 지키는 것은 당연히 갖춰야 할 \n덕목입니다. 'NICE'에 맞는 '나이스'한 구성원이 되기 위해 \n노력해야합니다.",
+  colleagues:
+    "NICE는 최고의 전문가가 모인 집단입니다.\n탁월한 동료와 함께 고민할 때 더 나은 해결책을 찾고 \n목표 달성을 위한 시너지를 만들 수 있습니다.",
+  whyWith:
+    "불분명한 업무지시나 소통은 오해를 만들고 잘못된 \n결과를 초래합니다. '무엇을'과 '어떻게'뿐 아니라 \n'왜(WHY)'를 공유할 때 같은 방향으로 함께(WITH) \n나아갈 수 있습니다.",
+  oneGoal:
+    "우리의 목적지는 하나! \n서로 다른 일을 하더라도 모두 회사를 위한 일입니다.\n부서간의 이해관계를 우선시 하는 것 보다는 \n우리 회사 공동의 목표에 도달하기 위해 노력해야 합니다.",
+};
 
 export const ResultSummary: Record<AxisKey, string> = {
     pro: '완벽주의 DNA를 장착한 ‘디테일 장인’. 허투루 넘어가는 건 절대 못 봐요.',

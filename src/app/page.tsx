@@ -22,6 +22,8 @@ import {
   ResultTraitsMobile,
   ResultMomonet,
   ResultMomonetMobile,
+  AXIS_DESCRIPTIONS,
+  AXIS_DESCRIPTIONSMOBILE,
   type AxisKey,
 } from "@/data/questions";
 
@@ -46,21 +48,6 @@ const makeInitialScores = () =>
     (acc, axis) => ({ ...acc, [axis.key]: 0 }),
     {} as Record<AxisKey, number>
   );
-
-// ---------------------- 축 설명 ----------------------
-const AXIS_DESCRIPTIONS: Record<AxisKey, string> = {
-  pro: "내가 맡은 분야에서 전문성을 바탕으로 주도적이며 책임감있게 일할 때, 회사와 나는 함께 성장합니다.",
-  betterBest:
-    "변화를 두려워하지 않고 더 나음(Better)을 추구하는 것이 우리를 최고(Best)로 이끕니다.",
-  niceAct:
-    "구성원 간 존중과 배려, 약속을 지키는 것은 당연한 자세입니다. NICE하게 행동하는 것이 중요합니다.",
-  colleagues:
-    "탁월한 동료와 함께 고민할 때 더 나은 해법을 찾고 시너지가 만들어집니다.",
-  whyWith:
-    "Why를 공유해야 With가 있습니다. 소통의 명확함이 같은 방향으로 나아가게 합니다.",
-  oneGoal:
-    "우리는 서로 다른 일을 해도 목적지는 하나입니다. 회사의 공동 목표를 향해 함께 나아가야 합니다.",
-};
 
 // ------------------ 차트 라벨 ------------------
 const CustomAngleTick: React.FC<any> = (props) => {
@@ -510,8 +497,9 @@ export default function NiceSurveyApp() {
                 <div className="text-sm text-violet-100 mb-2 font-semibold">
                   {AXES[selectedCard].label}
                 </div>
-                <div className="text-sm text-violet-200">
-                  {AXIS_DESCRIPTIONS[AXES[selectedCard].key]}
+                <div className="text-sm text-violet-200 whitespace-pre-line">
+                  {/* {AXIS_DESCRIPTIONS[AXES[selectedCard].key]} */}
+                  {(isMobile ? AXIS_DESCRIPTIONSMOBILE[AXES[selectedCard].key] : AXIS_DESCRIPTIONS[AXES[selectedCard].key])}
                 </div>
               </div>
             )}
