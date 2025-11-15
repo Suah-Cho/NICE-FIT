@@ -424,7 +424,7 @@ export default function NiceSurveyApp() {
                       ${
                         selectedOptionIndex === idx
                           ? "text-black scale-[1.03]"
-                          : "bg-white/10 hover:bg-white/40 text-white border-white/30"
+                          : "bg-white/10 text-white border-white/30"
                       }
                     `}
                   >
