@@ -314,7 +314,7 @@ export default function NiceSurveyApp() {
       {phase === "video" && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
           <video
-            src="/opening.mp4"
+            src="/opening.MOV"
             autoPlay
             muted
             playsInline
