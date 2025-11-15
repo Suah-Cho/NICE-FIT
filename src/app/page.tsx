@@ -240,7 +240,7 @@ export default function NiceSurveyApp() {
   const [scores, setScores] = useState<Record<AxisKey, number>>(makeInitialScores);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [phase, setPhase] = useState<
-    "video" | "intro" | "questions" | "reveal" | "result"
+    "video" | "intro" | "questions" | "loading" | "reveal" | "result"
   >("video");
   const [revealIndices, setRevealIndices] = useState<number[]>([]);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
@@ -261,13 +261,21 @@ export default function NiceSurveyApp() {
     }
   }, [phase, revealIndices]);
 
+  // selectedOptionIndex 상태 변화 모니터링
+  useEffect(() => {
+    console.log("selectedOptionIndex 상태 변화:", selectedOptionIndex);
+  }, [selectedOptionIndex]);
+
   const handleAnswer = (
     qIndex: number,
     optIndex: number,
     traits: { axis: AxisKey; weight: number }[]
   ) => {
-    setSelectedOptionIndex(optIndex);
-
+    console.log("===============================");
+    console.log("현재 질문 인덱스:", qIndex);
+    console.log("선택된 옵션 인덱스:", optIndex);
+    
+    // 점수 업데이트
     setScores((prev) => {
       const next = { ...prev };
       traits.forEach(({ axis, weight }) => {
@@ -276,11 +284,20 @@ export default function NiceSurveyApp() {
       return next;
     });
 
+    // 마지막 질문이 아닌 경우: 바로 다음 질문으로 넘어감
     if (qIndex < selectedQuestions.length - 1) {
+      setCurrentIndex(qIndex + 1);
+      setSelectedOptionIndex(null); // 다음 질문에서 선택 상태 초기화
+    } else {
+      // 마지막 질문에서 로딩 단계로 넘어감
+      setPhase("loading");
+      
+      // 10초 후 결과 계산하고 reveal로 넘어감
       setTimeout(() => {
-        setCurrentIndex(qIndex + 1);
-        setSelectedOptionIndex(null);
-      }, 200);
+        const final = computeRevealIndicesFromTotals(scores);
+        setRevealIndices(final);
+        setPhase("reveal");
+      }, 5500);
     }
   };
 
@@ -370,15 +387,6 @@ export default function NiceSurveyApp() {
                   NICE FIT 진단하기
                 </Button>
               </div>
-              {/* <div className="flex justify-center mb-4">
-                <input
-                  type="text"
-                  placeholder="이름을 입력해주세요"
-                  value={userName}
-                  onChange={(e) => setUserName(e.target.value)}
-                  className="px-4 py-2 rounded-sm bg-white text-black w-64 text-center"
-                />
-              </div> */}
             </div>
           </>
         )}
@@ -406,16 +414,8 @@ export default function NiceSurveyApp() {
                     key={idx}
                     variant="outline"
                     onClick={() => handleAnswer(currentIndex, idx, opt.trait)}
-                    className={`
-                      w-full justify-center text-base whitespace-normal break-words px-4 py-9 transition-all
-                      touch-none
-                      md:hover:bg-white
-                      ${
-                        selectedOptionIndex === idx
-                          ? "text-black scale-[1.03]"
-                          : "bg-white/10 text-white border-white/30"
-                      }
-                    `}
+                    className="w-full justify-center text-base whitespace-normal break-words px-4 py-9 hover:bg-white/10 hover:text-white
+                              transition-all bg-white/10 text-white border-white/30 active:bg-white/30"
                   >
                     {opt.label}
                   </Button>
@@ -425,23 +425,54 @@ export default function NiceSurveyApp() {
               <div className="mt-4 text-sm text-violet-200">
                 {currentIndex + 1} / {selectedQuestions.length}
               </div>
-
-              {isLastQuestion && (
-                <div className="mt-6 flex justify-center">
-                  <Button
-                    onClick={() => {
-                      const final = computeRevealIndicesFromTotals(scores);
-                      setRevealIndices(final);
-                      setPhase("reveal");
-                    }}
-                    className="px-6 py-4 h-12 rounded-sm bg-[#F9CF10] hover:bg-gray-100 text-[#312E3F] shadow-lg text-base"
-                  >
-                    검사 결과 확인하기
-                  </Button>
-                </div>
-              )}
             </div>
           </>
+        )}
+
+        {/* 결과 분석 중 로딩 */}
+        {phase === "loading" && (
+          <div className="text-center py-20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="flex flex-col items-center"
+            >
+              {/* 로딩 스피너 */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                className="w-16 h-16 border-4 border-[#F9CF10] border-t-transparent rounded-full mb-6"
+              />
+              
+              {/* 로딩 텍스트 */}
+              <motion.h2 
+                className="text-2xl font-bold mb-4 text-[#F9CF10]"
+                animate={{ opacity: [1, 0.5, 1] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+              >
+                ✨ 결과 분석 중... ✨
+              </motion.h2>
+              
+              <p className="text-lg text-violet-100 mb-8">
+                {userName}님만의 특별한 NICE-FIT을 찾고 있어요
+              </p>
+
+              {/* 진행 바 */}
+              <div className="w-64 bg-white/20 rounded-full h-2 mb-4">
+                <motion.div
+                  className="bg-[#F9CF10] h-2 rounded-full"
+                  initial={{ width: "0%" }}
+                  animate={{ width: "100%" }}
+                  transition={{ duration: 5, ease: "linear" }}
+                />
+              </div>
+              
+              <p className="text-sm text-violet-200">
+                잠시만 기다려주세요...
+              </p>
+            </motion.div>
+          </div>
         )}
 
         {/* 카드 뒤집힘 */}

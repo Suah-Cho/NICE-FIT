@@ -46,7 +46,7 @@ export const QUESTION_LIST: QuestionItem[] = [
     options: [
       {
         label: "지적을 감사하게 받아들이고, 무엇을 고칠지 생각해본다.",
-        trait: [{ axis: "betterBest", weight: 0.5 }, { axis: "niceAct", weight: 1.1 }]
+        trait: [{ axis: "betterBest", weight: 0.5 }, { axis: "niceAct", weight: 1 }]
       },
       {
         label: "피드백을 반영했을 때 더 좋은 부분이 있을 지 살펴본다.",
@@ -86,7 +86,7 @@ export const QUESTION_LIST: QuestionItem[] = [
       },
       {
         label: "우선 왜 나에게 이 역할을 제안했는지 충분히 이해한 후 결정한다.", 
-        trait: [{axis:"pro",weight:0.8},{axis:"whyWith",weight:1},]
+        trait: [{axis:"pro",weight:0.8},{axis:"whyWith",weight:1.1},]
       },
       {
         label: "잘 모르는 분야라면 무턱대고 수락하기보다, 해당 분야에 더 전문성이 있는 동료가 있는지 살펴본다.", 
@@ -207,7 +207,7 @@ export const QUESTION_LIST: QuestionItem[] = [
 export const AXIS_DESCRIPTIONS: Record<AxisKey, string> = {
   pro: "내가 맡은 분야에서 전문성을 바탕으로 주도적이며 책임감있게 일할 때, 회사와 나는 함께 성장하는 \n좋은 파트너가 됩니다.",
   betterBest:
-    "현실에 안주하거나 불편함을 참는 건 스마트 하지 않습니다.\n변화를 두려워하지 않고 더 나음(Better)을 추구하는 것 만이 \n우리를 최고(Best)로 이끌 수 있습니다.",
+    "현실에 안주하거나 불편함을 참는 건 스마트 하지 않습니다.\n변화를 두려워하지 않고 더 나음(Better)을 추구하는 것 만이 우리를 최고(Best)로 이끌 수 있습니다.",
   niceAct:
     "구성원 간 존중과 배려, 약속을 지키는 것은 당연히 갖춰야 할 덕목입니다.\n'NICE'에 맞는 '나이스'한 구성원이 되기 위해 노력해야합니다.",
   colleagues:
