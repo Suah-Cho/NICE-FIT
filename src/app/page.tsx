@@ -408,6 +408,8 @@ export default function NiceSurveyApp() {
                     onClick={() => handleAnswer(currentIndex, idx, opt.trait)}
                     className={`
                       w-full justify-center text-base whitespace-normal break-words px-4 py-9 transition-all
+                      touch-none
+                      md:hover:bg-white
                       ${
                         selectedOptionIndex === idx
                           ? "text-black scale-[1.03]"
